@@ -1,0 +1,1 @@
+mycroft-messagebus-client>=0.8.4
