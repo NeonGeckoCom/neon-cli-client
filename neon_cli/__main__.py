@@ -36,29 +36,7 @@ def custom_except_hook(exctype, value, traceback):
 sys.excepthook = custom_except_hook  # noqa
 
 
-def main(log_dir, ipc_dir, lang="en-us"):
-    # Monitor system logs
-    start_log_monitor(os.path.join(log_dir, 'skills.log'))
-    start_log_monitor(os.path.join(log_dir, 'voice.log'))
-
-    # Monitor IPC file containing microphone level info
-    start_mic_monitor(os.path.join(ipc_dir, "mic_level"))
-
-    connect_to_mycroft()
-    if '--simple' in sys.argv:
-        sys.stdout = sys.__stdout__
-        sys.stderr = sys.__stderr__
-        simple_cli(lang)
-    else:
-        # Special signal handler allows a clean shutdown of the GUI
-        signal.signal(signal.SIGINT, ctrl_c_handler)
-        load_settings()
-        curses.wrapper(gui_main, lang)
-        curses.endwin()
-        save_settings()
-
-
-if __name__ == "__main__":
+def main():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("ipc_dir", type=str, help="the base",
@@ -69,5 +47,31 @@ if __name__ == "__main__":
     parser.add_argument("lang", type=str,
                         help="lang code",
                         default="en-us")
+    parser.add_argument("simple", type=bool,
+                        help="use simple cli without logs",
+                        default=False)
     args = parser.parse_args()
-    main(args.logs_dir, args.ipc_dir, args.lang)
+
+    # Monitor system logs
+    start_log_monitor(os.path.join(args.logs_dir, 'skills.log'))
+    start_log_monitor(os.path.join(args.logs_dir, 'voice.log'))
+
+    # Monitor IPC file containing microphone level info
+    start_mic_monitor(os.path.join(args.ipc_dir, "mic_level"))
+
+    connect_to_mycroft()
+    if args.simple:
+        sys.stdout = sys.__stdout__
+        sys.stderr = sys.__stderr__
+        simple_cli(args.lang)
+    else:
+        # Special signal handler allows a clean shutdown of the GUI
+        signal.signal(signal.SIGINT, ctrl_c_handler)
+        load_settings()
+        curses.wrapper(gui_main, args.lang)
+        curses.endwin()
+        save_settings()
+
+
+if __name__ == "__main__":
+    main()
