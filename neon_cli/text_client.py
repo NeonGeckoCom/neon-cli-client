@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import glob
 import sys
 import io
 from math import ceil
@@ -27,6 +28,7 @@ import textwrap
 import json
 from threading import Thread, Lock
 from mycroft_bus_client import Message, MessageBusClient
+from neon_utils.configuration_utils import NGIConfig
 from logging import getLogger
 
 
@@ -177,6 +179,7 @@ def load_settings():
         if "show_meter" in config:
             show_meter = config["show_meter"]
     except Exception as e:
+        LOG.error(e)
         LOG.info("Ignoring failed load of settings file")
 
 
@@ -407,11 +410,12 @@ def rebuild_filtered_log():
 
 def handle_speak(event):
     global chat
+    # TODO: Why would the debug ignore things? DM
     # if the message is targeted and cli is not the target ignore utterance
-    if (event.context and 'destination' in event.context and
-            event.context['destination'] and
-            'cli' not in event.context['destination']):
-        return
+    # if (event.context and 'destination' in event.context and
+    #         event.context['destination'] and
+    #         'cli' not in event.context['destination']):
+    #     return
     utterance = event.data.get('utterance')
     utterance = remove_ssml(utterance)
     if bSimple:
@@ -425,11 +429,12 @@ def handle_utterance(event):
     global chat
     global history
     utterance = event.data.get('utterances')[0]
+    # TODO: Why would the debug ignore things? DM
     # if the message is targeted and cli is not the target ignore utterance
-    if (event.context and 'destination' in event.context and
-            event.context['destination'] and
-            'cli' not in event.context['destination']):
-        return
+    # if (event.context and 'destination' in event.context and
+    #         event.context['destination'] and
+    #         'cli' not in event.context['destination']):
+    #     return
     history.append(utterance)
     chat.append(utterance)
     set_screen_dirty()
@@ -689,6 +694,11 @@ def do_draw_main(scr):
         scr.addstr(0, 0, "Log Output:" + " " * (curses.COLS - 31) +
                    str(start) + "-" + str(end) + " of " + str(cLogs),
                    CLR_HEADING)
+    neon_ver = os.path.basename(glob.glob(NGIConfig('ngi_local_conf').content['dirVars']['ngiDir'] +
+                                          '/*.release')[0]).split('.release')[0]
+    ver = " === Neon-core " + str(neon_ver) + " ==="
+    scr.addstr(1, 0, "=" * (curses.COLS-1-len(ver)), CLR_HEADING)
+    scr.addstr(1, curses.COLS-1-len(ver), ver, CLR_HEADING)
 
     y = 2
     for i in range(start, end):
@@ -805,6 +815,11 @@ def do_draw_main(scr):
         prompt = "Input (':' for command, Ctrl+C to quit)"
         if show_last_key:
             prompt += " === keycode: "+last_key
+        # # TODO: Read this from config! DM
+        # if check_for_signal('CORE_skipWakeWord', -1):
+        #     prompt += " === Skipping Wake Words"
+        # else:
+        #     prompt += " === Requiring Wake Words"
         scr.addstr(curses.LINES - 2, 0,
                    make_titlebar(prompt,
                                  curses.COLS - 1),
@@ -1318,8 +1333,10 @@ def gui_main(stdscr, lang="en-us"):
                                      {'utterances': [line.strip()],
                                       'lang': lang},
                                      {'client_name': 'mycroft_cli',
-                                      'source': 'cli',
-                                      'destination': ["skills"]}
+                                      'source': 'debug_cli',
+                                      'destination': ["skills"],
+                                      "client": "local",
+                                      'neon_should_respond': False}  # Treat as STT for troubleshooting
                                      ))
                 hist_idx = -1
                 line = ""
@@ -1412,7 +1429,7 @@ def simple_cli(lang="en-us"):
             bus.emit(Message("recognizer_loop:utterance",
                              {'utterances': [line.strip()], "lang": lang},
                              {'client_name': 'mycroft_simple_cli',
-                              'source': 'cli',
+                              'source': 'debug_cli',
                               'destination': ["skills"]}))
     except KeyboardInterrupt as e:
         # User hit Ctrl+C to quit

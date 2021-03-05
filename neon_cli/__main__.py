@@ -39,15 +39,15 @@ sys.excepthook = custom_except_hook  # noqa
 def main():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("ipc_dir", type=str, help="the base",
+    parser.add_argument("--ipc_dir", dest="ipc_dir", type=str, help="the base",
                         default=os.path.join(tempfile.gettempdir(), "mycroft", "ipc"))
-    parser.add_argument("logs_dir", type=str,
+    parser.add_argument("--logs_dir", dest="logs_dir", type=str,
                         help="directory where mycroft logs are stored",
                         default="/var/log/mycroft/")
-    parser.add_argument("lang", type=str,
+    parser.add_argument("--lang", dest="lang", type=str,
                         help="lang code",
                         default="en-us")
-    parser.add_argument("simple", type=bool,
+    parser.add_argument("--simple", dest="simple", type=bool,
                         help="use simple cli without logs",
                         default=False)
     args = parser.parse_args()
@@ -55,7 +55,8 @@ def main():
     # Monitor system logs
     start_log_monitor(os.path.join(args.logs_dir, 'skills.log'))
     start_log_monitor(os.path.join(args.logs_dir, 'voice.log'))
-
+    start_log_monitor(os.path.join(args.logs_dir, 'audio.log'))
+    start_log_monitor(os.path.join(args.logs_dir, 'extras.log'))
     # Monitor IPC file containing microphone level info
     start_mic_monitor(os.path.join(args.ipc_dir, "mic_level"))
 
