@@ -71,6 +71,7 @@ find_str = None
 cy_chat_area = 7  # default chat history height (in lines)
 size_log_area = 0  # max number of visible log lines, calculated during draw
 
+wake_words_enabled = NGIConfig('ngi_user_info').content['interface']['wake_words_enabled']
 
 # Values used to display the audio meter
 show_meter = True
@@ -656,6 +657,7 @@ def do_draw_main(scr):
     global last_full_redraw
     global auto_scroll
     global size_log_area
+    global wake_words_enabled
 
     if time.time() - last_full_redraw > FULL_REDRAW_FREQUENCY:
         # Do a full-screen redraw periodically to clear and
@@ -815,11 +817,12 @@ def do_draw_main(scr):
         prompt = "Input (':' for command, Ctrl+C to quit)"
         if show_last_key:
             prompt += " === keycode: "+last_key
-        # # TODO: Read this from config! DM
-        # if check_for_signal('CORE_skipWakeWord', -1):
-        #     prompt += " === Skipping Wake Words"
-        # else:
-        #     prompt += " === Requiring Wake Words"
+
+        if wake_words_enabled:
+            prompt += " === Requiring Wake Words"
+        else:
+            prompt += " === Skipping Wake Words"
+
         scr.addstr(curses.LINES - 2, 0,
                    make_titlebar(prompt,
                                  curses.COLS - 1),
@@ -1193,6 +1196,11 @@ def handle_reconnecting():
     add_log_message("Looking for Messagebus websocket...")
 
 
+def handle_wake_words_state(message):
+    global wake_words_enabled
+    wake_words_enabled = message.data.get("enabled")
+
+
 def gui_main(stdscr, lang="en-us"):
     global scr
     global bus
@@ -1215,6 +1223,7 @@ def gui_main(stdscr, lang="en-us"):
     bus.on('recognizer_loop:utterance', handle_utterance)
     bus.on('connected', handle_is_connected)
     bus.on('reconnecting', handle_reconnecting)
+    bus.on('neon.wake_words_state', handle_wake_words_state)
 
     add_log_message("Establishing Mycroft Messagebus connection...")
 

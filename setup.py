@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='neon_cli_client',
-    version='0.0.2',
+    version='0.0.3',
     packages=['neon_cli'],
     url='https://github.com/NeonJarbas/debug_cli',
     license='apache-2.0',
