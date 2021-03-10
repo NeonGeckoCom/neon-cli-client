@@ -19,7 +19,7 @@ import os.path
 import curses
 import tempfile
 from neon_utils.configuration_utils import NGIConfig
-from neon_cli.text_client import start_log_monitor, start_mic_monitor, \
+from text_client import start_log_monitor, start_mic_monitor, \
     connect_to_mycroft, simple_cli, load_settings, ctrl_c_handler, gui_main, \
     save_settings
 
