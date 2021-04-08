@@ -71,7 +71,7 @@ find_str = None
 cy_chat_area = 7  # default chat history height (in lines)
 size_log_area = 0  # max number of visible log lines, calculated during draw
 
-wake_words_enabled = NGIConfig('ngi_user_info').content['interface']['wake_words_enabled']
+wake_words_enabled = NGIConfig('ngi_local_conf').get('interface', {}).get('wake_words_enabled', True)
 
 # Values used to display the audio meter
 show_meter = True
