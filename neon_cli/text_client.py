@@ -299,6 +299,7 @@ class LogMonitorThread(Thread):
 
 
 def start_log_monitor(filename):
+    filename = os.path.expanduser(filename)
     if os.path.isfile(filename):
         thread = LogMonitorThread(filename, len(log_files))
         thread.setDaemon(True)  # this thread won't prevent prog from exiting
@@ -308,7 +309,7 @@ def start_log_monitor(filename):
 class MicMonitorThread(Thread):
     def __init__(self, filename):
         Thread.__init__(self)
-        self.filename = filename
+        self.filename = os.path.expanduser(filename)
         self.st_results = None
 
     def run(self):
