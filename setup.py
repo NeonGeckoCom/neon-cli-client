@@ -17,7 +17,7 @@ from setuptools import setup
 
 setup(
     name='neon_cli_client',
-    version='0.0.4',
+    version='0.0.5',
     packages=['neon_cli'],
     url='https://github.com/NeonGeckoCom/neon_cli',
     license='apache-2.0',
