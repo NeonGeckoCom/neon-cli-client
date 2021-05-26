@@ -1,2 +1,2 @@
 mycroft-messagebus-client>=0.8.4
-git+https://github.com/neongeckocom/neon-skill-utils
+neon_utils @ git+https://github.com/neongeckocom/neon-skill-utils
