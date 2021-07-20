@@ -37,7 +37,7 @@ def get_requirements(requirements_filename: str):
 
 setup(
     name='neon_cli_client',
-    version='0.0.6',
+    version='0.0.7',
     packages=['neon_cli'],
     url='https://github.com/NeonGeckoCom/neon_cli',
     license='apache-2.0',
