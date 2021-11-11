@@ -35,19 +35,33 @@ def get_requirements(requirements_filename: str):
     return requirements
 
 
+with open("README.md", "r") as f:
+    long_description = f.read()
+
+with open("./version.py", "r", encoding="utf-8") as v:
+    for line in v.readlines():
+        if line.startswith("__version__"):
+            if '"' in line:
+                version = line.split('"')[1]
+            else:
+                version = line.split("'")[1]
+
 setup(
     name='neon_cli_client',
-    version='0.0.7',
+    version=version,
     packages=['neon_cli'],
     url='https://github.com/NeonGeckoCom/neon_cli',
     license='apache-2.0',
-    author='jarbasAi',
-    author_email='',
-    description='cli client extracted from mycroft-core',
+    author='NeonJarbas',
+    author_email='developers@neon.ai',
+    description='Packaged CLI Client from mycroft-core',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     install_requires=get_requirements("requirements.txt"),
     entry_points={
         'console_scripts': [
-            'neon_cli_client=neon_cli.__main__:main'
+            'neon_cli_client=neon_cli.__main__:main',  # TODO: This entrypoint should be deprecated DM
+            'neon-cli=neon_cli.__main__:main'
         ]
     }
 )
