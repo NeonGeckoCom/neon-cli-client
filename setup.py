@@ -52,16 +52,15 @@ setup(
     packages=['neon_cli'],
     url='https://github.com/NeonGeckoCom/neon_cli',
     license='apache-2.0',
-    author='NeonJarbas',
+    author='Neongecko',
     author_email='developers@neon.ai',
-    description='Packaged CLI Client from mycroft-core',
+    description='Packaged CLI Client from Neon, Mycroft, and OVOS cores',
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=get_requirements("requirements.txt"),
     entry_points={
         'console_scripts': [
-            'neon_cli_client=neon_cli.__main__:main',  # TODO: This entrypoint should be deprecated DM
-            'neon-cli=neon_cli.__main__:main'
+            'neon-cli=neon_cli.cli:neon_cli'
         ]
     }
 )
