@@ -172,14 +172,14 @@ def handleNonAscii(text):
 config_file = os.path.join(os.path.expanduser("~"), ".mycroft_cli.conf")
 
 
-def connect_to_mycroft():
+def connect_to_mycroft(host: str = "0.0.0.0", port: int = 8181):
     """ Connect to the mycroft messagebus and load and register config
         on the bus.
 
         Sets the bus and config global variables
     """
     global bus
-    bus = connect_to_messagebus()
+    bus = connect_to_messagebus(host, port)
 
 
 def load_settings():
@@ -1473,13 +1473,13 @@ def simple_cli(lang="en-us"):
         sys.exit()
 
 
-def connect_to_messagebus():
+def connect_to_messagebus(host: str = "0.0.0.0", port: int = 8181):
     """ Connect to the mycroft messagebus and launch a thread handling the
         connection.
 
         Returns: WebsocketClient
     """
-    bus = MessageBusClient()  # Mycroft messagebus connection
+    bus = MessageBusClient(host, port)  # Mycroft messagebus connection
 
     event_thread = Thread(target=connect, args=[bus])
     event_thread.setDaemon(True)
