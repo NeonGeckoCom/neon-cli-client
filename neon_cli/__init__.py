@@ -46,6 +46,6 @@ def start_cli_client(host: str, port: int, lang: str,
         # Special signal handler allows a clean shutdown of the GUI
         signal.signal(signal.SIGINT, ctrl_c_handler)
         load_settings()
-        curses.wrapper(gui_main, lang)
+        curses.wrapper(gui_main, lang=lang)
         curses.endwin()
         save_settings()
