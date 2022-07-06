@@ -51,7 +51,7 @@ import textwrap
 import json
 from threading import Thread, Lock
 from mycroft_bus_client import Message, MessageBusClient
-from neon_utils.configuration_utils import get_neon_cli_config
+from ovos_config.config import Configuration
 from logging import getLogger
 
 
@@ -94,9 +94,9 @@ find_str = None
 cy_chat_area = 7  # default chat history height (in lines)
 size_log_area = 0  # max number of visible log lines, calculated during draw
 
-config = get_neon_cli_config()
-wake_words_enabled = config['wake_words_enabled']
-
+config = dict(Configuration())
+wake_words_enabled = config.get('wake_words_enabled') or not \
+    config.get("listener", {}).get("continuous_listen")
 # Values used to display the audio meter
 show_meter = True
 meter_peak = 20
@@ -300,6 +300,7 @@ class LogMonitorThread(Thread):
 
 def start_log_monitor(filename):
     filename = os.path.expanduser(filename)
+    LOG.info(f"Adding log: {filename}")
     if os.path.isfile(filename):
         thread = LogMonitorThread(filename, len(log_files))
         thread.setDaemon(True)  # this thread won't prevent prog from exiting
@@ -721,7 +722,7 @@ def do_draw_main(scr):
         scr.addstr(0, 0, "Log Output:" + " " * (curses.COLS - 31) +
                    str(start) + "-" + str(end) + " of " + str(cLogs),
                    CLR_HEADING)
-    neon_ver = config["neon_core_version"]
+    neon_ver = config.get("neon_core_version")  # TODO
     ver = " === Neon-core " + str(neon_ver) + " ==="
     scr.addstr(1, 0, "=" * (curses.COLS-1-len(ver)), CLR_HEADING)
     scr.addstr(1, curses.COLS-1-len(ver), ver, CLR_HEADING)

@@ -29,7 +29,7 @@ import click
 
 from os.path import join
 from click_default_group import DefaultGroup
-from neon_utils.configuration_utils import get_neon_cli_config
+from ovos_config.config import Configuration
 
 
 @click.group("neon-cli", cls=DefaultGroup,  invoke_without_command=True,
@@ -43,7 +43,8 @@ from neon_utils.configuration_utils import get_neon_cli_config
 @click.option("--ipc-dir",
               default=join(tempfile.gettempdir(), "mycroft", "ipc"),
               help="Path to local IPC directory")
-@click.option("--logs-dir", default=get_neon_cli_config()["log_dir"],
+@click.option("--logs-dir",
+              default=dict(Configuration()).get("log_dir") or "/var/log/neon",
               help="Path to local logs directory")
 @click.option("--simple", "-s", is_flag=True, default=False,
               help="Use simple CLI without logs")
