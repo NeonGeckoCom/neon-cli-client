@@ -39,7 +39,6 @@ import sys
 import io
 import os.path
 import tempfile
-from neon_utils.configuration_utils import get_neon_cli_config
 
 
 from neon_cli import start_cli_client
@@ -60,11 +59,15 @@ sys.excepthook = custom_except_hook  # noqa
 
 def main():
     import argparse
+    from neon_utils.configuration_utils import init_config_dir
+    from ovos_config.config import Configuration
+    init_config_dir()
 
-    logs_dir = get_neon_cli_config()["log_dir"]
+    logs_dir = dict(Configuration()).get("log_dir") or "/var/log/mycroft"
     parser = argparse.ArgumentParser()
     parser.add_argument("--ipc_dir", dest="ipc_dir", type=str, help="the base",
-                        default=os.path.join(tempfile.gettempdir(), "mycroft", "ipc"))
+                        default=os.path.join(tempfile.gettempdir(),
+                                             "mycroft", "ipc"))
     parser.add_argument("--logs_dir", dest="logs_dir", type=str,
                         help="directory where mycroft logs are stored",
                         default=logs_dir)
