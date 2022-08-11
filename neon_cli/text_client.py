@@ -1367,7 +1367,7 @@ def gui_main(stdscr, lang="en-us"):
                                      {'utterances': [line.strip()],
                                       'lang': lang},
                                      {'client_name': 'mycroft_cli',
-                                      'source': 'debug_cli',
+                                      'source': ['debug_cli'],
                                       'destination': ["skills"],
                                       "client": "local",
                                       'neon_should_respond': False}  # Treat as STT for troubleshooting
@@ -1463,7 +1463,7 @@ def simple_cli(lang="en-us"):
             bus.emit(Message("recognizer_loop:utterance",
                              {'utterances': [line.strip()], "lang": lang},
                              {'client_name': 'mycroft_simple_cli',
-                              'source': 'debug_cli',
+                              'source': ['debug_cli'],
                               'destination': ["skills"]}))
     except KeyboardInterrupt as e:
         # User hit Ctrl+C to quit
