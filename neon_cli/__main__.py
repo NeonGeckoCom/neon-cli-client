@@ -36,16 +36,12 @@
 # limitations under the License.
 #
 import sys
-import signal
 import io
 import os.path
-import curses
 import tempfile
-from neon_utils.configuration_utils import get_neon_cli_config
 
-from .text_client import start_log_monitor, start_mic_monitor, \
-    connect_to_mycroft, simple_cli, load_settings, ctrl_c_handler, gui_main, \
-    save_settings
+
+from neon_cli import start_cli_client
 
 sys.stdout = io.StringIO()
 sys.stderr = io.StringIO()
@@ -63,11 +59,15 @@ sys.excepthook = custom_except_hook  # noqa
 
 def main():
     import argparse
+    from neon_utils.configuration_utils import init_config_dir
+    from ovos_config.config import Configuration
+    init_config_dir()
 
-    logs_dir = get_neon_cli_config()["log_dir"]
+    logs_dir = dict(Configuration()).get("log_dir") or "/var/log/mycroft"
     parser = argparse.ArgumentParser()
     parser.add_argument("--ipc_dir", dest="ipc_dir", type=str, help="the base",
-                        default=os.path.join(tempfile.gettempdir(), "mycroft", "ipc"))
+                        default=os.path.join(tempfile.gettempdir(),
+                                             "mycroft", "ipc"))
     parser.add_argument("--logs_dir", dest="logs_dir", type=str,
                         help="directory where mycroft logs are stored",
                         default=logs_dir)
@@ -78,27 +78,8 @@ def main():
                         help="use simple cli without logs",
                         default=False)
     args = parser.parse_args()
-
-    # Monitor system logs
-    start_log_monitor(os.path.join(args.logs_dir, 'skills.log'))
-    start_log_monitor(os.path.join(args.logs_dir, 'voice.log'))
-    start_log_monitor(os.path.join(args.logs_dir, 'audio.log'))
-    start_log_monitor(os.path.join(args.logs_dir, 'extras.log'))
-    # Monitor IPC file containing microphone level info
-    start_mic_monitor(os.path.join(args.ipc_dir, "mic_level"))
-
-    connect_to_mycroft()
-    if args.simple:
-        sys.stdout = sys.__stdout__
-        sys.stderr = sys.__stderr__
-        simple_cli(args.lang)
-    else:
-        # Special signal handler allows a clean shutdown of the GUI
-        signal.signal(signal.SIGINT, ctrl_c_handler)
-        load_settings()
-        curses.wrapper(gui_main, args.lang)
-        curses.endwin()
-        save_settings()
+    start_cli_client("0.0.0.0", 8181, args.lang, args.ipc_dir, args.logs_dir,
+                     args.simple)
 
 
 if __name__ == "__main__":
