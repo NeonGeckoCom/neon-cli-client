@@ -37,7 +37,7 @@ from ovos_config.config import Configuration
 @click.option("--host", "-h", default="0.0.0.0",
               help="Host (IP) Address of the messagebus")
 @click.option("--port", "-p", default=8181,
-              help="Host (IP) Address of the messagebus")
+              help="Port used by the messagebus")
 @click.option("--lang", "-l", default="en-us",
               help="Language of inputs/responses")
 @click.option("--ipc-dir",
