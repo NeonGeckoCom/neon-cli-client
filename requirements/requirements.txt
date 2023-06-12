@@ -1,4 +1,4 @@
-mycroft-messagebus-client~=0.9,>=0.9.4
+ovos-bus-client~=0.0.3
 neon_utils~=1.0
 ovos_config~=0.0
 click~=8.0

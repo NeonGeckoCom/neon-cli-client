@@ -40,8 +40,8 @@ from os import getpid
 from os.path import basename
 import json
 import websocket
-from threading import Thread, Lock
-from mycroft_bus_client import Message
+from threading import Thread
+from ovos_bus_client.message import Message
 
 
 bus = None
