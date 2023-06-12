@@ -50,7 +50,7 @@ import curses
 import textwrap
 import json
 from threading import Thread, Lock
-from mycroft_bus_client import Message, MessageBusClient
+from ovos_bus_client import Message, MessageBusClient
 from ovos_config.config import Configuration
 from logging import getLogger
 
