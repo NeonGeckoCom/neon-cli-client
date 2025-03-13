@@ -1,65 +1,20 @@
 # Changelog
 
-## [0.2.4a10](https://github.com/NeonGeckoCom/neon-cli-client/tree/0.2.4a10) (2023-06-27)
+## [0.3.1a2](https://github.com/NeonGeckoCom/neon-cli-client/tree/0.3.1a2) (2025-03-13)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon-cli-client/compare/0.2.4a9...0.2.4a10)
-
-**Merged pull requests:**
-
-- Update release automation to latest standards [\#37](https://github.com/NeonGeckoCom/neon-cli-client/pull/37) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [0.2.4a9](https://github.com/NeonGeckoCom/neon-cli-client/tree/0.2.4a9) (2023-06-12)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon-cli-client/compare/0.2.4a8...0.2.4a9)
+[Full Changelog](https://github.com/NeonGeckoCom/neon-cli-client/compare/0.3.1a1...0.3.1a2)
 
 **Merged pull requests:**
 
-- Refactor `mycroft_bus_client` to `ovos_bus_client` [\#36](https://github.com/NeonGeckoCom/neon-cli-client/pull/36) ([NeonDaniel](https://github.com/NeonDaniel))
+- Update license notices to 2025 [\#40](https://github.com/NeonGeckoCom/neon-cli-client/pull/40) ([NeonDaniel](https://github.com/NeonDaniel))
 
-## [0.2.4a8](https://github.com/NeonGeckoCom/neon-cli-client/tree/0.2.4a8) (2023-03-14)
+## [0.3.1a1](https://github.com/NeonGeckoCom/neon-cli-client/tree/0.3.1a1) (2024-09-19)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon-cli-client/compare/0.2.4a7...0.2.4a8)
-
-**Merged pull requests:**
-
-- Update automation to default branch ref [\#35](https://github.com/NeonGeckoCom/neon-cli-client/pull/35) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [0.2.4a7](https://github.com/NeonGeckoCom/neon-cli-client/tree/0.2.4a7) (2023-03-13)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon-cli-client/compare/0.2.4a6...0.2.4a7)
+[Full Changelog](https://github.com/NeonGeckoCom/neon-cli-client/compare/0.3.0...0.3.1a1)
 
 **Merged pull requests:**
 
-- Remove branch spec to test default behavior [\#34](https://github.com/NeonGeckoCom/neon-cli-client/pull/34) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [0.2.4a6](https://github.com/NeonGeckoCom/neon-cli-client/tree/0.2.4a6) (2023-03-13)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon-cli-client/compare/0.2.4a5...0.2.4a6)
-
-**Merged pull requests:**
-
-- Specify branch to use for alpha releases [\#33](https://github.com/NeonGeckoCom/neon-cli-client/pull/33) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [0.2.4a5](https://github.com/NeonGeckoCom/neon-cli-client/tree/0.2.4a5) (2023-03-13)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon-cli-client/compare/0.2.4-a.4...0.2.4a5)
-
-**Merged pull requests:**
-
-- Add default .gitignore file [\#32](https://github.com/NeonGeckoCom/neon-cli-client/pull/32) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [0.2.4-a.4](https://github.com/NeonGeckoCom/neon-cli-client/tree/0.2.4-a.4) (2023-03-13)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon-cli-client/compare/0.2.3...0.2.4-a.4)
-
-**Merged pull requests:**
-
-- Fix typo in Automation [\#31](https://github.com/NeonGeckoCom/neon-cli-client/pull/31) ([NeonDaniel](https://github.com/NeonDaniel))
-- Automate prerelease action with release notes [\#30](https://github.com/NeonGeckoCom/neon-cli-client/pull/30) ([NeonDaniel](https://github.com/NeonDaniel))
-- Add documentation to README.md [\#29](https://github.com/NeonGeckoCom/neon-cli-client/pull/29) ([NeonDaniel](https://github.com/NeonDaniel))
-- Resolve PyPI Automation failure [\#28](https://github.com/NeonGeckoCom/neon-cli-client/pull/28) ([NeonDaniel](https://github.com/NeonDaniel))
-- Troubleshooting Package Data [\#27](https://github.com/NeonGeckoCom/neon-cli-client/pull/27) ([NeonDaniel](https://github.com/NeonDaniel))
-- Use shared version\_bump automation script [\#25](https://github.com/NeonGeckoCom/neon-cli-client/pull/25) ([NeonDaniel](https://github.com/NeonDaniel))
+- Update ovos-bus-client dependency to support latest stable release [\#39](https://github.com/NeonGeckoCom/neon-cli-client/pull/39) ([NeonDaniel](https://github.com/NeonDaniel))
 
 
 
