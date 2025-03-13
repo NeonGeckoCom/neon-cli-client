@@ -1,4 +1,4 @@
-ovos-bus-client~=0.0.3
+ovos-bus-client~=0.0
 neon_utils~=1.0
 ovos_config~=0.0
 click~=8.0

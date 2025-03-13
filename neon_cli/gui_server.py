@@ -1,6 +1,6 @@
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Development System
 #
-# Copyright 2008-2021 Neongecko.com Inc. | All Rights Reserved
+# Copyright 2008-2025 Neongecko.com Inc. | All Rights Reserved
 #
 # Notice of License - Duplicating this Notice of License near the start of any file containing
 # a derivative of this software is a condition of license for this software.
@@ -19,7 +19,7 @@
 #
 # This software is an enhanced derivation of the Mycroft Project which is licensed under the
 # Apache software Foundation software license 2.0 https://www.apache.org/licenses/LICENSE-2.0
-# Changes Copyright 2008-2021 Neongecko.com Inc. | All Rights Reserved
+# Changes Copyright 2008-2025 Neongecko.com Inc. | All Rights Reserved
 #
 # Copyright 2018 Mycroft AI Inc.
 #
